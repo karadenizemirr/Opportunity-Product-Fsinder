@@ -3,25 +3,40 @@ import re
 import time
 import os
 import pandas as pd
-import cloudscraper
+import pickle
 from datetime import datetime
 from modules.user_agent import user_agent
 from rich.console import Console
 from bs4 import BeautifulSoup
 from modules import proxy
 from rich.progress import Progress
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
 class Scraper:
     def __init__(self):
         self.user_agent = user_agent.random_user_agent()
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://www.akakce.com"
-        self.cloudscraper = cloudscraper.create_scraper(delay=10,   browser={'custom': 'ScraperBot/1.0',})
-    
+        # Recaptha Solver With Selenium 
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        options.add_argument(f'--user-agent={self.user_agent}')
+        chrome_driver = webdriver.Chrome("modules/chromedriver.exe",chrome_options=options)
+        chrome_driver.get(self.base_url)
+        time.sleep(10)
+        # Create Cookie
+        pickle.dump(chrome_driver.get_cookies(), open("data/cookies.pk1", "wb"))
+        # Add Cokies
+        cookies = pickle.load(open('data/cookies.pk1', 'rb'))
+        self.session.cookies.update(cookies)
+
     def pagination(self):
         while True:
             try:
-                s_req = self.cloudscraper.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                     "user-agent": self.user_agent
                 })
                 
