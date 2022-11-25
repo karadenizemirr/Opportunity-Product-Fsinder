@@ -3,6 +3,7 @@ import re
 import time
 import os
 import pandas as pd
+import cloudscraper
 from datetime import datetime
 from modules.user_agent import user_agent
 from rich.console import Console
@@ -15,11 +16,12 @@ class Scraper:
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://www.akakce.com"
+        self.cloudscraper = cloudscraper.create_scraper(delay=10,   browser={'custom': 'ScraperBot/1.0',})
     
     def pagination(self):
         while True:
             try:
-                s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                s_req = self.cloudscraper.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                     "user-agent": self.user_agent
                 })
                 
