@@ -119,7 +119,7 @@ class Scraper:
                     second_price = second_html.find("span", {"class": "pt_v8"}).text
                     second_seller = second_html.findAll("span", {"class": "v_v8"})
                     second_seller_name = None
-
+                    
                     if second_seller[0].img:
                         second_seller_name = second_seller[0].img['alt'] + second_seller[0].text
                     elif second_seller[0]:
