@@ -12,8 +12,7 @@ action = html['action']
 
 all_input = html.findAll('input')
 
-md = all_input[0]
-r = all_input[1]
+md = all_input[0]['value']
+r = all_input[1]['value']
 
-print(md)
-print(r)
+print(action)
