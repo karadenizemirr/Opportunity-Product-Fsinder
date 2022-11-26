@@ -8,5 +8,5 @@ req = session.get(URL)
 html = BeautifulSoup(req.text, "html.parser")
 
 action = html.findAll("form")[0]['action']
-md = html.findAll("input", {'name': 'md'})["value"]
+md = html.findAll("input", {'name': 'md'})
 print(md)
