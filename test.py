@@ -10,8 +10,6 @@ html = BeautifulSoup(s_req.text, 'html.parser').findAll("form")[0]
 
 action = html['action']
 
-md = html.findAll('input', {'name': 'md'})
-r = html.findALl('input', {'name': 'r'})
+all_input = html.findAll('input')
 
-print(md)
-print(r)
+print(all_input)
