@@ -1,17 +1,7 @@
 import requests
-import cloudscraper
+import cfscrape
 
-URL = "https://akakce.com/"
+scraper = cfscrape.create_scraper(delay=10)
+a = scraper.get("https://www.akakce.com/")
 
-headers = {
-    "referer": "https://api.akakce.com/",
-    "user-agent": "3.05",
-    "accept": "application/json",
-    "content-length": "0",
-    "accept-encoding": "gzip"
-}
-
-s = requests.Session()
-sc = cloudscraper.create_scraper(sess=s)
-
-print(sc.post(URL, headers = headers))
+print(a)
