@@ -18,4 +18,3 @@ def source(URL="https://api.akakce.com/", proxy = None, user_agent=None):
     driver.delete_all_cookies()
     driver.get(URL)
     time.sleep(3600)
-    return driver.page_source
