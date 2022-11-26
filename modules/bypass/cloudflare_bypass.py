@@ -9,5 +9,10 @@ if os.name == 'nt':
 else:
     path = "modules/bypass/chromedriver"
 
+chrome_option = Options()
 
-driver = webdriver.Chrome(path)
+driver = webdriver.Chrome(path, chrome_options=chrome_option)
+
+def create_bypass(link):
+    driver.get(link)
+    
