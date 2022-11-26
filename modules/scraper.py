@@ -104,7 +104,7 @@ class Scraper:
                         "Ürün Linki": l
                     }   
 
-                    html = BeautifulSoup(req.text, "html.parser")
+                    html = BeautifulSoup(req, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
                     all_price = html.findAll("ul", {"id" : "PL"})[0].findAll("li")
 
@@ -152,7 +152,9 @@ class Scraper:
                         "Yüzdelik Fark": "%.2f" % float(percent),
                         "Ürün Linki": l
                     }
+
                     print(product)
+                    
                     detail_data.append(product)
                     time.sleep(0.3)
                     self.session.cookies.clear_session_cookies()
