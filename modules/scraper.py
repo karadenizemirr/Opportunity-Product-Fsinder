@@ -164,6 +164,7 @@ class Scraper:
         user_id = "744777387"
         sendMessage = f"https://api.telegram.org/bot{api_key}/sendMessage"
 
+        
         # Create Message
         code_html='*Fırsat Ürünleri*'  
         if df.empty == False:
@@ -173,7 +174,7 @@ class Scraper:
     
         payloads = {
             "chat_id": user_id,
-            "text" :code_html
+            "text" :str(code_html)
         }
 
         try:
