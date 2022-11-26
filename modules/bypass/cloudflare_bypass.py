@@ -1,4 +1,6 @@
 import os
+import time
+import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -18,3 +20,4 @@ driver = webdriver.Chrome(service=service, chrome_options=chrome_option)
 
 def create_bypass(link):
     driver.get(link)
+    time.sleep(10)
