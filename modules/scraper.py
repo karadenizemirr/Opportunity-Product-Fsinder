@@ -60,8 +60,8 @@ class Scraper:
                 for l in li:
                     links.append(f"{l.a['href']}".strip())
         except IndexError:
-            _proxy = proxy.create_proxy()
-            req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}"), proxy=f"http://{_proxy['https']}")
+            #_proxy = proxy.create_proxy()
+            #req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}"), proxy=f"http://{_proxy['https']}")
             
             # self.session.proxies.update({
             #         "https": f"http://{_proxy['https']}"})
@@ -102,7 +102,7 @@ class Scraper:
 
                     if re.findall(r'403|Forbidden|Access|denied', str(req)):
                         time.sleep(15)
-                        
+
                     html = BeautifulSoup(req.text, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
                     all_price = html.findAll("ul", {"id" : "PL"})[0].findAll("li")
