@@ -14,5 +14,5 @@ r = html.findAll("input", {'name': 'r'})[0]['value']
 r_req = session.post(f"{URL}{action}", data={
     "md": md,
     "r": r
-})
+}, allow_redirects=True)
 print(r_req.text)
