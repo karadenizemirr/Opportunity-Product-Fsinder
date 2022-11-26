@@ -9,6 +9,12 @@ options.add_argument("start-maximized")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 
-driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
-driver.get("https://api.akakce.com/")
-time.sleep(3600)
+
+
+def create_session(URL="https://api.akakce.com/"):
+    driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
+    driver.get("https://api.akakce.com/")
+    print(driver.page_source)
+
+
+create_session()
