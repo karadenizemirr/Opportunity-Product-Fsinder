@@ -20,4 +20,4 @@ r_req = session.post(f"{base_url}/{action}", data = {
     "r": r
 })
 
-print(r_req)
+print(r_req.text)
