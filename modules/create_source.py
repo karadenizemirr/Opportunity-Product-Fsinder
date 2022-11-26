@@ -17,15 +17,13 @@ options.add_experimental_option('useAutomationExtension', False)
 driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
 def source(URL=None, proxy = None, user_agent=None):
-    while True:
+    driver.delete_all_cookies()
+    driver.get(URL)
+
+    if re.findall(r'403|Forbidden|Access|denied', str(driver.page_source)):
         driver.delete_all_cookies()
-        driver.get(URL)
+        _proxy = proxy.create_proxy()
+        options.add_argument("--proxy-server=%s" % _proxy)
+        time.sleep(5)
 
-        if re.findall(r'403|Forbidden|Access|denied', str(driver.page_source)):
-            driver.delete_all_cookies()
-            _proxy = proxy.create_proxy()
-            options.add_argument("--proxy-server=%s" % _proxy)
-            time.sleep(5)
-            continue
-
-        return driver.page_source
+    return driver.page_source
