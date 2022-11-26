@@ -3,15 +3,11 @@ import re
 import time
 import os
 import pandas as pd
-import cfscrape
-from datetime import datetime
+import cloudscraper
 from modules.user_agent import user_agent
 from rich.console import Console
 from bs4 import BeautifulSoup
 from modules import proxy
-from rich.progress import Progress
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 class Scraper:
     def __init__(self):
@@ -19,7 +15,7 @@ class Scraper:
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://www.akakce.com"
-        self.cloudscraper = cfscrape.create_scraper(sess=self.session)
+        self.cloudscraper = cloudscraper.CloudScraper()
 
     def pagination(self):
         while True:
