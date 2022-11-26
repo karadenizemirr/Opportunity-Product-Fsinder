@@ -3,4 +3,4 @@ session = requests.Session()
 
 URL = "https://api.akakce.com/"
 
-print(session.get(URL))
+print(session.get(URL).text)
