@@ -15,4 +15,4 @@ r_req = session.post(f"{URL}{action}", params={
     "md": md,
     "r": r
 })
-print(r_req)
+print(r_req.text)
