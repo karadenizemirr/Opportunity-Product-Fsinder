@@ -99,6 +99,9 @@ class Scraper:
                     #req = self.session.get(l)
 
                     req = str(create_source.source(l))
+
+                    if re.findall(r'403|Forbidden|Access|denied', str(req)):
+                        time.sleep(15)
                         
                     html = BeautifulSoup(req.text, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text

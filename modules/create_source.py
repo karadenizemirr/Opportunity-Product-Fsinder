@@ -1,3 +1,4 @@
+import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -13,5 +14,5 @@ driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option
 def source(URL=None, proxy = None, user_agent=None):
     driver.delete_all_cookies()
     driver.get(URL)
-    
+
     return driver.page_source
