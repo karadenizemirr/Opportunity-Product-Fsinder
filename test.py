@@ -10,5 +10,5 @@ options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 
 driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
-driver.get("https://www.akakce.com/")
+driver.get("https://api.akakce.com/")
 time.sleep(3600)
