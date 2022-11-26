@@ -1,8 +1,3 @@
-import requests
-session = requests.Session()
+from modules.bypass import cloudflare_bypass
 
-URL = "https://api.akakce.com/"
-
-req = session.get(URL)
-
-print(req.text)
+cloudflare_bypass.create_bypass("https://api.akakce.com/")
