@@ -1,6 +1,5 @@
-import cloudscraper
+import cfscrape
 
-cs = cloudscraper.create_scraper(delay = 10)
+cs = cfscrape.create_scraper()
 
-r = cs.get("https://www.akakce.com/")
-print(r)
+print(cs.get("https://www.akakce.com/"))
