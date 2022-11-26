@@ -160,7 +160,7 @@ class Scraper:
                     self.session.cookies.clear_session_cookies()
                     self.session.cookies.clear()
                 except:
-                    print("burada [0]")
+                    self.console.print("Detay sorunu [0]", style="red")
                     continue
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
