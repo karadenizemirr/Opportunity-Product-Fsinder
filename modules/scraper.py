@@ -26,7 +26,7 @@ class Scraper:
                 # })
                 
                 s_req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"))
-                page_number = re.findall(r'<b>Sayfa: 1 \/ (.*?)<\/b>', s_req.text)[0]
+                page_number = re.findall(r'<b>Sayfa: 1 \/ (.*?)<\/b>', s_req)[0]
                 
                 return int(page_number)
             except:
