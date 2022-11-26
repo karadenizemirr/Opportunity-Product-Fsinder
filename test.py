@@ -1,7 +1,17 @@
 import requests
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36',
-'referer' :"http://akakce.com/"}
+import cloudscraper
+
+URL = "https://akakce.com/"
+
+headers = {
+    "referer": "https://api.akakce.com/",
+    "user-agent": "3.05",
+    "accept": "application/json",
+    "content-length": "0",
+    "accept-encoding": "gzip"
+}
 
 s = requests.Session()
-req = s.get("http://akakce.com/")
-print(req.text)
+sc = cloudscraper.create_scraper(sess=s)
+
+print(sc.post(URL, headers = headers))
