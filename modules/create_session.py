@@ -11,10 +11,11 @@ options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 #options.add_argument('--headless')
 #options.add_argument('--disable-gpu')
-
+driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
 def source(URL="https://api.akakce.com/", proxy = None, user_agent=None):
-    driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
+    
+    driver.delete_all_cookies()
     driver.get("https://api.akakce.com/")
-    time.sleep(15)
+    
     return driver.page_source
