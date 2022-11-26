@@ -20,10 +20,8 @@ def source(URL=None, proxy = None, user_agent=None):
     driver.delete_all_cookies()
     driver.get(URL)
 
-    if re.findall(r'403|Forbidden|Access|denied', str(driver.page_source)):
+    if re.findall(r'403 Forbidden', str(driver.page_source)):
         driver.delete_all_cookies()
-        _proxy = proxy.create_proxy()
-        options.add_argument("--proxy-server=%s" % _proxy)
         time.sleep(5)
 
     return driver.page_source

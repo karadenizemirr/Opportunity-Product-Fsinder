@@ -21,10 +21,6 @@ class Scraper:
     def pagination(self):
         while True:
             try:
-                # s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
-                #     "user-agent": self.user_agent
-                # })
-                
                 s_req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"))
                 page_number = re.findall(r'<b>Sayfa: 1 \/ (.*?)<\/b>', s_req)[0]
                 
