@@ -1,5 +1,4 @@
 import requests
-from modules import bypass
 
 session = requests.Session()
 
