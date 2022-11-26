@@ -102,7 +102,9 @@ class Scraper:
                         "İkinci Satıcı Fiyatı": "Null",
                         "Yüzdelik Fark": "Null",
                         "Ürün Linki": l
-                    }   
+                        }
+                        time.sleep(5)   
+
 
                     html = BeautifulSoup(req, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
@@ -152,22 +154,26 @@ class Scraper:
                         "Yüzdelik Fark": "%.2f" % float(percent),
                         "Ürün Linki": l
                     }
-
-                    print(product)
                     
                     detail_data.append(product)
                     time.sleep(0.3)
-                    self.session.cookies.clear_session_cookies()
-                    self.session.cookies.clear()
                 except:
-                    self.console.print("Detay sorunu [0]", style="red")
+                    product = {
+                        "Ürün Adı": "Null",
+                        "İlk Satıcı": "Null",
+                        "İlk Satıcı Fiyatı": "Null",
+                        "İkinci Satıcı": "Null",
+                        "İkinci Satıcı Fiyatı": "Null",
+                        "Yüzdelik Fark": "Null",
+                        "Ürün Linki": l
+                        }
+                    time.sleep(10)
                     continue
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
         # Save Df
         filename = f"data/data.xlsx"
         df.to_excel(filename)
-        print(df)
         return df
 
     def telegram_messages(self):
