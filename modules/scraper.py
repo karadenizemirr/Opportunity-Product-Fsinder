@@ -95,15 +95,9 @@ class Scraper:
         with self.console.status("[blue]Detaylar alınıyor..[/blue]") as status:
             for l in links:
                 try:
-                    req = self.session.get(l)
-                    
-                    if (req.status_code == 429) or (req.status_code == 403):
-                        _proxy = proxy.create_proxy()
-                        self.session.cookies.clear()
-                        req = self.session.get(l, proxies={
-                            "https": f"http://{_proxy['https']}"
-                        })
-                        time.sleep(5)
+                    #req = self.session.get(l)
+
+                    req = str(create_source.source(l))
                         
                     html = BeautifulSoup(req.text, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
