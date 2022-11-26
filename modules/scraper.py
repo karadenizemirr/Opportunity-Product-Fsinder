@@ -8,6 +8,7 @@ from modules.user_agent import user_agent
 from rich.console import Console
 from bs4 import BeautifulSoup
 from modules import proxy
+from modules import bypass
 
 class Scraper:
     def __init__(self):
@@ -15,17 +16,14 @@ class Scraper:
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://www.akakce.com"
-        self.cloudscraper = cloudscraper.create_scraper(delay=10, browser= {
-            'browser': 'chrome',
-            'platform': 'android',
-            "desktop": False
-        }, sess=self.session)
+        self.create_session = bypass.create_session(self.base_url)
+
     
-    print("güncelleme yapıldı.")
+    
     def pagination(self):
         while True:
             try:
-                s_req = self.cloudscraper.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                s_req = self.create_session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                     "user-agent": self.user_agent
                 })
                 
