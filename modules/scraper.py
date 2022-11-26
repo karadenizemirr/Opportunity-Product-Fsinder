@@ -3,7 +3,6 @@ import re
 import time
 import os
 import pandas as pd
-import cloudscraper
 from modules.user_agent import user_agent
 from rich.console import Console
 from bs4 import BeautifulSoup
@@ -15,12 +14,30 @@ class Scraper:
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://www.akakce.com"
-        self.cloudscraper = cloudscraper.CloudScraper()
+        self.headers = {
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
+            "Accept-Encoding": "gzip, deflate, br", 
+            "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7", 
+            "Host": "httpbin.org", 
+            "Referer": "https://github.com/microsoft/playwright-python/issues/1396", 
+            "Sec-Ch-Ua": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\"", 
+            "Sec-Ch-Ua-Mobile": "?0", 
+            "Sec-Ch-Ua-Platform": "\"Linux\"", 
+            "Sec-Fetch-Dest": "document", 
+            "Sec-Fetch-Mode": "navigate", 
+            "Sec-Fetch-Site": "cross-site", 
+            "Sec-Fetch-User": "?1", 
+            "Upgrade-Insecure-Requests": "1", 
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36", 
+            "X-Amzn-Trace-Id": "Root=1-63815db8-28ff19086f98030c7cda6560"
+        }
+
+        self.session.headers.update(self.headers)
 
     def pagination(self):
         while True:
             try:
-                s_req = self.cloudscraper.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                     "user-agent": self.user_agent
                 })
                 
@@ -40,7 +57,7 @@ class Scraper:
             for i in range(1, page+1):
                 
                 if i == 1:
-                    req = self.cloudscraper.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                    req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                         "user-agent": self.user_agent
                     })
                 
@@ -87,7 +104,7 @@ class Scraper:
         with self.console.status("[blue]Detaylar alınıyor..[/blue]") as status:
             for l in links:
                 try:
-                    req = self.cloudscraper.get(l)
+                    req = self.session.get(l)
                     
                     if (req.status_code == 429) or (req.status_code == 403):
                         _proxy = proxy.create_proxy()
