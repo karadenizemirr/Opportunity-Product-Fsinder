@@ -156,7 +156,7 @@ class Scraper:
 
     def telegram_messages(self):
         df = pd.read_excel("data/data.xlsx")
-        df = df[df['Yüzdelik Fark'] >= 25]
+        df = df[float(df['Yüzdelik Fark']) >= 25]
         df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
         #user_id = "5669620760"
         #api_key = "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
@@ -164,7 +164,6 @@ class Scraper:
         user_id = "744777387"
         sendMessage = f"https://api.telegram.org/bot{api_key}/sendMessage"
 
-        
         # Create Message
         code_html='*Fırsat Ürünleri*'  
         if df.empty == False:
@@ -174,7 +173,7 @@ class Scraper:
     
         payloads = {
             "chat_id": user_id,
-            "text" :str(code_html)
+            "text" :code_html
         }
 
         try:
