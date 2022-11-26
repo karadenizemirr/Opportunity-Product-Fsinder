@@ -42,16 +42,20 @@ class Scraper:
             for i in range(1, page+1):
                 
                 if i == 1:
-                    req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
-                        "user-agent": self.user_agent
-                    })
+                    # req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                    #     "user-agent": self.user_agent
+                    # })
+
+                    req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/",))
                 
                 else: 
-                    req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}", headers={
-                        "user-agent": self.user_agent
-                    })
+                    # req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}", headers={
+                    #     "user-agent": self.user_agent
+                    # })
+
+                    req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}"))
                 
-                li = BeautifulSoup(req.text, "html.parser").findAll("ul", {'id' : 'DPL'})[0].findAll('li')
+                li = BeautifulSoup(req, "html.parser").findAll("ul", {'id' : 'DPL'})[0].findAll('li')
                 
                 for l in li:
                     links.append(f"{self.base_url}{l.a['href']}".strip())
