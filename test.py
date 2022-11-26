@@ -6,12 +6,12 @@ session = requests.Session()
 base_url ="https://www.akakce.com"
 
 s_req = session.get(base_url)
-html = BeautifulSoup(s_req.text, 'html.parser').findAll("form")
+html = BeautifulSoup(s_req.text, 'html.parser').findAll("form")[0]
 
-action = html[0]['action']
+action = html['action']
 
-md = html[0].findAll('input', {'name': 'md'})
-r = html[0].findALl('input', {'name': 'r'})
+md = html.findAll('input', {'name': 'md'})
+r = html.findALl('input', {'name': 'r'})
 
 print(md)
 print(r)
