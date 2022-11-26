@@ -16,15 +16,11 @@ class Scraper:
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://www.akakce.com"
-        self.create_session = bypass.create_session(self.base_url)
-
-        a_req = self.session.get(self.base_url)
-        print(a_req.text)
     
     def pagination(self):
         while True:
             try:
-                s_req = self.create_session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                     "user-agent": self.user_agent
                 })
                 
