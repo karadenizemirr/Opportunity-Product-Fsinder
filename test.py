@@ -15,4 +15,9 @@ all_input = html.findAll('input')
 md = all_input[0]['value']
 r = all_input[1]['value']
 
-print(action)
+r_req = session.post(f"{base_url}/{action}", data = {
+    "md": md,
+    "r": r
+})
+
+print(r_req)
