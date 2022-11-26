@@ -7,3 +7,5 @@ base_url ="https://www.akakce.com"
 
 s_req = session.get(base_url)
 html = BeautifulSoup(s_req.text, 'html.parser').findAll("form")
+
+print(html)
