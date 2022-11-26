@@ -19,7 +19,7 @@ class Scraper:
         self.create_session = bypass.create_session(self.base_url)
 
         a_req = self.session.get(self.base_url)
-        a_req.text
+        print(a_req.text)
     
     def pagination(self):
         while True:
