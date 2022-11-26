@@ -17,5 +17,5 @@ headers = {
 }
 
 s = requests.Session()
-req = s.get("https://api.akakce.com/")
+req = s.get("https://api.akakce.com/", verify=False)
 print(req.text)
