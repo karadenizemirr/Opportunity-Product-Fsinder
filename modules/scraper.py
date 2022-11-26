@@ -58,7 +58,7 @@ class Scraper:
                 li = BeautifulSoup(req, "html.parser").findAll("ul", {'id' : 'DPL'})[0].findAll('li')
                 
                 for l in li:
-                    links.append(f"{self.base_url}{l.a['href']}".strip())
+                    links.append(f"{l.a['href']}".strip())
         except IndexError:
             _proxy = proxy.create_proxy()
             req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}"), proxy=f"http://{_proxy['https']}")
