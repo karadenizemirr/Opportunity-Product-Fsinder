@@ -8,7 +8,6 @@ from modules.user_agent import user_agent
 from rich.console import Console
 from bs4 import BeautifulSoup
 from modules import proxy
-from modules import create_source
 
 class Scraper:
     def __init__(self):
@@ -16,15 +15,14 @@ class Scraper:
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://akakce.com/"
-
+    
     def pagination(self):
         while True:
             try:
-                # s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
-                #     "user-agent": self.user_agent
-                # })
+                s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                    "user-agent": self.user_agent
+                })
                 
-                s_req = create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/")
                 page_number = re.findall(r'<b>Sayfa: 1 \/ (.*?)<\/b>', s_req.text)[0]
                 
                 return int(page_number)
