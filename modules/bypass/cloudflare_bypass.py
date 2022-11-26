@@ -6,13 +6,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-path = None
-
-if os.name == 'nt':
-    path = "modules/bypass/chromedriver.exe"
-else:
-    path = "modules/bypass/chromedriver"
-
 
 chrome_option = Options()
 service=Service(ChromeDriverManager().install())
