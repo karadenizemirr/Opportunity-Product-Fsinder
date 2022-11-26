@@ -7,11 +7,6 @@ session = requests.Session()
 req = session.get(URL)
 html = BeautifulSoup(req.text, "html.parser")
 
-print(req.text)
-
-
 action = html.findAll("form")[0]['action']
-md = html.findAll("input", {"name": "md"})['value']
-r = html.findAll("input", {"name": "r"})['value']
 
-print(md)
+print(action)
