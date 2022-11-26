@@ -167,7 +167,7 @@ class Scraper:
                         "Yüzdelik Fark": "Null",
                         "Ürün Linki": l
                         }
-                    time.sleep(10)
+                    time.sleep(5)
                     continue
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
