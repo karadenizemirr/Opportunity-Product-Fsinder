@@ -3,7 +3,7 @@ import re
 import time
 import os
 import pandas as pd
-import pickle
+import cfscrape
 from datetime import datetime
 from modules.user_agent import user_agent
 from rich.console import Console
@@ -19,24 +19,12 @@ class Scraper:
         self.session = requests.Session()
         self.console = Console()
         self.base_url = "https://www.akakce.com"
-        # Recaptha Solver With Selenium 
-        options = Options()
-        options.add_argument('--headless')
-        options.add_argument('--disable-gpu')
-        options.add_argument(f'--user-agent={self.user_agent}')
-        chrome_driver = webdriver.Chrome("modules/chromedriver.exe",chrome_options=options)
-        chrome_driver.get(self.base_url)
-        time.sleep(10)
-        # Create Cookie
-        pickle.dump(chrome_driver.get_cookies(), open("data/cookies.pk1", "wb"))
-        # Add Cokies
-        cookies = pickle.load(open('data/cookies.pk1', 'rb'))
-        self.session.cookies.update(cookies)
+        self.cloudscraper = cfscrape.create_scraper(sess=self.session)
 
     def pagination(self):
         while True:
             try:
-                s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                s_req = self.cloudscraper.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                     "user-agent": self.user_agent
                 })
                 
@@ -56,7 +44,7 @@ class Scraper:
             for i in range(1, page+1):
                 
                 if i == 1:
-                    req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                    req = self.cloudscraper.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
                         "user-agent": self.user_agent
                     })
                 
@@ -103,7 +91,7 @@ class Scraper:
         with self.console.status("[blue]Detaylar alınıyor..[/blue]") as status:
             for l in links:
                 try:
-                    req = self.session.get(l)
+                    req = self.cloudscraper.get(l)
                     
                     if (req.status_code == 429) or (req.status_code == 403):
                         _proxy = proxy.create_proxy()
