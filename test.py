@@ -9,4 +9,9 @@ s_req = session.get(base_url)
 html = BeautifulSoup(s_req.text, 'html.parser').findAll("form")
 
 action = html[0]['action']
-print(action)
+
+md = html[0].findAll('input', {'name': 'md'})
+r = html[0].findALl('input', {'name': 'r'})
+
+print(md)
+print(r)
