@@ -1,7 +1,12 @@
 import re
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from modules import proxy
+from rich.console import Console
+
+
 
 options = Options()
 options.add_argument("start-maximized")
@@ -12,7 +17,15 @@ options.add_experimental_option('useAutomationExtension', False)
 driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
 def source(URL=None, proxy = None, user_agent=None):
-    driver.delete_all_cookies()
-    driver.get(URL)
+    while True:
+        driver.delete_all_cookies()
+        driver.get(URL)
 
-    return driver.page_source
+        if re.findall(r'403|Forbidden|Access|denied', str(driver.page_source)):
+            driver.delete_all_cookies()
+            _proxy = proxy.create_proxy()
+            options.add_argument("--proxy-server=%s" % _proxy)
+            time.sleep(5)
+            continue
+
+        return driver.page_source

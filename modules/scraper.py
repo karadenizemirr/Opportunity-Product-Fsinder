@@ -31,10 +31,7 @@ class Scraper:
                 return int(page_number)
             except:
                 self.console.print("\nSayfa numarası alınırken bir sorun meydana geldi.\n", style="bold red")
-                _proxy = proxy.create_proxy()
-                self.session.proxies.update({
-                    "https": f"http://{_proxy['https']}"
-                })
+                time.sleep(5)
     
     def product_link(self, page = 21):
         links = []
@@ -65,7 +62,7 @@ class Scraper:
             
             # self.session.proxies.update({
             #         "https": f"http://{_proxy['https']}"})
-            time.sleep(15)
+            time.sleep(5)
             
             
         try:
@@ -99,9 +96,6 @@ class Scraper:
                     #req = self.session.get(l)
 
                     req = str(create_source.source(l))
-
-                    if re.findall(r'403|Forbidden|Access|denied', str(req)):
-                        time.sleep(15)
 
                     html = BeautifulSoup(req.text, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
