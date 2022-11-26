@@ -15,7 +15,7 @@ class Scraper:
         self.user_agent = user_agent.random_user_agent()
         self.session = requests.Session()
         self.console = Console()
-        self.base_url = "https://akakce.com/"
+        self.base_url = "https://api.akakce.com/"
         
     
     def pagination(self):
