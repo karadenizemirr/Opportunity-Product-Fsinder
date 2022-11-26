@@ -11,6 +11,4 @@ action = html.findAll("form")[0]['action']
 md = html.findAll("input", {"name": "md"})['value']
 r = html.findAll("input", {"name": "r"})['value']
 
-r_req = session.post(f"{URL}/{action}", params={"md": md, 'r': r})
-
-print(r_req)
+print(md)
