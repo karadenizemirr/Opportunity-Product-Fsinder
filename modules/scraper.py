@@ -61,8 +61,10 @@ class Scraper:
                     links.append(f"{self.base_url}{l.a['href']}".strip())
         except IndexError:
             _proxy = proxy.create_proxy()
-            self.session.proxies.update({
-                    "https": f"http://{_proxy['https']}"})
+            req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}"), proxy=f"http://{_proxy['https']}")
+            
+            # self.session.proxies.update({
+            #         "https": f"http://{_proxy['https']}"})
             time.sleep(15)
             
         try:
