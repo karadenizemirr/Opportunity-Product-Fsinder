@@ -23,6 +23,5 @@ def source(URL=None, proxy = None, user_agent=None):
     if re.findall(r'403 Forbidden', str(driver.page_source)):
         driver.delete_all_cookies()
         time.sleep(5)
-    
-    driver.close()
+        
     return driver.page_source
