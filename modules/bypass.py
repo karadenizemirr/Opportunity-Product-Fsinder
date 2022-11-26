@@ -35,11 +35,11 @@ def get_challenge_answer(challenge):
 def create_session(URL=None):
     session = requests.Session()
 
-    req = session.get(URL)
+    r = session.get(URL)
 
     if 'X-AA-Challenge' in r.text:
         challenge = parse_challenge(r.text)
-        r = req.get(URL, headers={
+        r = r.get(URL, headers={
             'X-AA-Challenge': challenge['challenge'],
             'X-AA-Challenge-ID': challenge['challenge_id'],
             'X-AA-Challenge-Result': challenge['challenge_result']
