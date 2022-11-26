@@ -156,12 +156,12 @@ class Scraper:
 
     def telegram_messages(self):
         df = pd.read_excel("data/data.xlsx")
-        df = df[df['Yüzdelik Fark'] >= 8]
+        df = df[df['Yüzdelik Fark'] >= 25]
         df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
-        user_id = "5669620760"
-        api_key = "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
-        #api_key = "5750542194:AAHUctF5ImPnjjOmobKfh7pUBsd_5ZHobG8"
-        #user_id = "744777387"
+        #user_id = "5669620760"
+        #api_key = "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
+        api_key = "5750542194:AAHUctF5ImPnjjOmobKfh7pUBsd_5ZHobG8"
+        user_id = "744777387"
         sendMessage = f"https://api.telegram.org/bot{api_key}/sendMessage"
 
         # Create Message
