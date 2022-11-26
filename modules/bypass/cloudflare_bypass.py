@@ -20,4 +20,4 @@ driver = webdriver.Chrome(service=service, chrome_options=chrome_option)
 
 def create_bypass(link):
     driver.get(link)
-    time.sleep(10)
+    time.sleep(3600)
