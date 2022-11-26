@@ -152,8 +152,33 @@ class Scraper:
         # Save Df
         filename = f"data/data.xlsx"
         df.to_excel(filename)
+        print(df)
         return df
 
     def telegram_messages(self):
         df = pd.read_excel("data/data.xlsx")
-        print(df)
+        df = df[df['Yüzdelik Fark'] >= 8]
+        df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
+        #user_id = "5669620760"
+        #api_key = "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
+        api_key = "5750542194:AAHUctF5ImPnjjOmobKfh7pUBsd_5ZHobG8"
+        user_id = "744777387"
+        sendMessage = f"https://api.telegram.org/bot{api_key}/sendMessage"
+
+        # Create Message
+        code_html='*Fırsat Ürünleri*'  
+        if df.empty == False:
+            for i in range(len(df)):
+                for col in df.columns:
+                    code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
+    
+        payloads = {
+            "chat_id": user_id,
+            "text" :code_html
+        }
+
+        try:
+            self.session.post(sendMessage, data = payloads)
+            self.console.log("Mesaj başarıyla gönderildi", style="bold green")
+        except:
+            self.console.log("Mesaj gönderilirken sorun meydana geldi..", style="bold red")

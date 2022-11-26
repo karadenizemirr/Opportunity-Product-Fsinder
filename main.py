@@ -16,7 +16,7 @@ def main():
     sc.product_detail()
 
     #Get Message
-    sc.telegram_messages()
+    #sc.telegram_messages()
     
 
 if __name__ == '__main__':
