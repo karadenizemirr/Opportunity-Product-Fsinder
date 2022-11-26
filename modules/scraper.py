@@ -20,7 +20,8 @@ class Scraper:
             'platform': 'android',
             "desktop": False
         }, sess=self.session)
-
+    
+    print("güncelleme yapıldı.")
     def pagination(self):
         while True:
             try:
