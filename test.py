@@ -1,4 +1,3 @@
-from modules import create_source
+from modules import create_session
 
-cs = create_source.source(URL="{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/")
-print(cs)
+cs = create_session.source()

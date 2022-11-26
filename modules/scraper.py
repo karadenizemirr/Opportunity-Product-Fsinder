@@ -3,11 +3,11 @@ import re
 import time
 import os
 import pandas as pd
+import cloudscraper
 from modules.user_agent import user_agent
 from rich.console import Console
 from bs4 import BeautifulSoup
 from modules import proxy
-from modules import create_source
 
 class Scraper:
     def __init__(self):
@@ -19,12 +19,9 @@ class Scraper:
     def pagination(self):
         while True:
             try:
-
-                # s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
-                #     "user-agent": self.user_agent
-                # })
-
-                s_req = create_source.source(URL="{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/")
+                s_req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
+                    "user-agent": self.user_agent
+                })
                 
                 page_number = re.findall(r'<b>Sayfa: 1 \/ (.*?)<\/b>', s_req.text)[0]
                 
