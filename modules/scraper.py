@@ -67,6 +67,7 @@ class Scraper:
             #         "https": f"http://{_proxy['https']}"})
             time.sleep(15)
             
+            
         try:
             os.remove("data/links.txt")
         except OSError:
