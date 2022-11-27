@@ -13,6 +13,7 @@ def main():
 
     product_detail = sc.product_detail(URL=product_link)
     
+    sc.telegram_messages()
 
 if __name__ == '__main__':
     main()

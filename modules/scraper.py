@@ -113,9 +113,10 @@ class Scraper:
                     }
 
                     details.append(_info)
-                except:
-                    _info = {
-                        "Ürün Adı": "null",
+
+                    if IndexError:
+                        _info = {
+                        "Ürün Adı": title,
                         "İlk Satıcı": "null",
                         "İlk Satıcı Fiyatı": "null",
                         "İkinci Satıcı": "null",
@@ -124,6 +125,8 @@ class Scraper:
                         "Link": u
                     }
                     details.append(_info)
+                except:
+                    time.sleep(5)
                     continue
                 # End DATA
                 progress.update(pbar, advance=1)
@@ -138,9 +141,39 @@ class Scraper:
         df.to_excel(path)
         return df
 
-
-    def bad_request_product_detail(self, URL=[]):
-        pass
-
     def telegram_messages(self):
-        pass
+            df = pd.read_excel("data/data.xlsx")
+            df = df[df['Yüzdelik Fark'] >= 25]
+            df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
+
+            print(df)
+            total_user = [
+                {
+                    "user_id": "5669620760",
+                    "api_key": "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
+                },
+                {
+                    "user_id": "744777387",
+                    "api_key": "5750542194"
+                }
+            ]
+
+            # Create Message
+            code_html='*Fırsat Ürünleri*'  
+            if df.empty == False:
+                for i in range(len(df)):
+                    for col in df.columns:
+                        code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
+
+            for t in total_user:
+                sendMessage = f"https://api.telegram.org/bot{t['api_key']}/sendMessage"
+                payloads = {
+                    "user_id":t['user_id'],
+                    "text": code_html
+                }
+                
+            try:
+                self.session.post(sendMessage, data = payloads)
+                self.console.log("Mesaj başarıyla gönderildi", style="bold green")
+            except:
+                self.console.log("Mesaj gönderilirken sorun meydana geldi..", style="bold red")
