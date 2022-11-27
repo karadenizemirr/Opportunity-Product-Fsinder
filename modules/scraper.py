@@ -16,7 +16,7 @@ class Scraper:
         self.session = bypass.create_session(URL=self.base_url)
         self.console = Console()
         self.telegram = telegram.Telegram(token="5750542194:AAHUctF5ImPnjjOmobKfh7pUBsd_5ZHobG8", user_id="744777387")
-        #self.telegram = telegram.Telegram(token="5901890521:AAG_9fjlySpTIQmJD-pb5wjYXC8hU-jjVvA", user_id="5669620760")
+        self.telegram_my = telegram.Telegram(token="5901890521:AAG_9fjlySpTIQmJD-pb5wjYXC8hU-jjVvA", user_id="5669620760")
     def create_page_number(self):
         URL = f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"
         req = self.session.get(URL)
@@ -111,6 +111,7 @@ class Scraper:
                             \n\n<a href="{u}">{title}</a>\n\n<b>İlk Satıcı: </b> {first_seller}\n<b>İlk Satıcı Fiyatı: </b> {first_price}\n<b>İkinci Satıcı: </b> {second_seller}\n<b>İkinci Satıcı Fiyatı: </b> {second_price}\n<b>Yüzdelik Fark: </b> %.2f
                         """ % percent
                         self.telegram.sendMessage(message=message)
+                        self.telegram_my.sendMessage(message=message)
                 except:
                     time.sleep(5)
                     continue
