@@ -1,7 +1,5 @@
 import re
 import time
-import telegram.ext
-import telegram 
 import os
 import pandas as pd
 from modules.user_agent import user_agent
