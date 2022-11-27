@@ -75,16 +75,14 @@ class Scraper:
         
         with self.console.status("[blue]Detaylar alınıyor..[/blue]") as status:
             for l in links:
-                try:
-                    #req = self.session.get(l)
-                    req = str(create_source.source(l))
-                    
-                    html = BeautifulSoup(req, "html.parser")
-                    title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
-                    print(title)
-                except Exception as e:
-                    time.sleep(5)
-                    continue
+                req = str(create_source.source(l))
+                
+                if re.findall(r'title', str(req.title)):
+                    print("burada")
+
+                html = BeautifulSoup(req, "html.parser")
+                title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
+
 
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
