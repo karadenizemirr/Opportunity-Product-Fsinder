@@ -1,6 +1,5 @@
-import requests
+import cloudscraper
 
-s = requests.Session()
-req = s.get("https://api.akakce.com")
-
+cs = cloudscraper.create_scraper()
+req = cs.get("https://api.akakce.com")
 print(req)
