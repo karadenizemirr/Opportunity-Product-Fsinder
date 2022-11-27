@@ -6,6 +6,7 @@ console = Console()
 
 def main():
     sc = scraper.Scraper()
+    sc.create_page_number()
     
 
 if __name__ == '__main__':
