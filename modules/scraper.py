@@ -142,21 +142,12 @@ class Scraper:
         return df
 
     def telegram_messages(self):
+            API = "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
+            USER_ID = "5669620760"
+
             df = pd.read_excel("data/data.xlsx")
             df = df[df['Yüzdelik Fark'] >= 25]
             df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
-
-            print(df)
-            total_user = [
-                {
-                    "user_id": "5669620760",
-                    "api_key": "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
-                },
-                {
-                    "user_id": "744777387",
-                    "api_key": "5750542194"
-                }
-            ]
 
             # Create Message
             code_html='*Fırsat Ürünleri*'  
@@ -165,12 +156,11 @@ class Scraper:
                     for col in df.columns:
                         code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
 
-            for t in total_user:
-                sendMessage = f"https://api.telegram.org/bot{t['api_key']}/sendMessage"
-                payloads = {
-                    "user_id":t['user_id'],
-                    "text": code_html
-                }
+            sendMessage = f"https://api.telegram.org/bot{API}/sendMessage"
+            payloads = {
+                "user_id":USER_ID,
+                "text": code_html
+            }
                 
             try:
                 self.session.post(sendMessage, data = payloads)
