@@ -18,6 +18,10 @@ driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option
 def source(URL=None, PROXY = None, user_agent=None):
     driver.delete_all_cookies()
     driver.delete_network_conditions()
+    
     driver.get(URL)
+
+    if str(driver.page_source).find("403 - forbidden access is denied") >= 0:
+        time.sleep(10)
 
     return driver.page_source
