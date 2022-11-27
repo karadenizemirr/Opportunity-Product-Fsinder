@@ -21,6 +21,6 @@ class Telegram:
                 req = self.session.post(f"{self.URL}/sendMessage", data=payloads).json()
                 if req['ok']:
                     self.console.print("Mesaj gönderildi.", style="bold green")
-                    return True
+                return True
             except:
                 self.console.print("Mesaj gönderilemedi.", style="bold red")

@@ -14,7 +14,7 @@ class Scraper:
         self.base_url = "https://api.akakce.com"
         self.session = bypass.create_session(URL=self.base_url)
         self.console = Console()
-        self.telegram = telegram.Telegram(token="5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI", user_id="5669620760")
+        self.telegram = telegram.Telegram(token="5750542194:AAHUctF5ImPnjjOmobKfh7pUBsd_5ZHobG8", user_id="744777387")
 
     def create_page_number(self):
         URL = f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"
