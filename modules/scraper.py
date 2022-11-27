@@ -131,7 +131,7 @@ class Scraper:
                     try:
                         percent = ((sp - fp) / sp) * 100
                     except  KeyError:
-                        percent = 0
+                        percent = 0.00
                     
                     # Create Dict
                     product = {
