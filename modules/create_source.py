@@ -23,10 +23,7 @@ def source(URL=None, PROXY = None, user_agent=None):
     if re.findall(r'title', str(driver.page_source.title)):
         driver.delete_all_cookies()
         driver.delete_network_conditions()
-        
-        _proxy = proxy.create_proxy()
-        options.add_argument('--proxy-server=%s' % _proxy)
-        time.sleep(5)
+        time.sleep(10)
     driver.get(URL)
 
     return driver.page_source
