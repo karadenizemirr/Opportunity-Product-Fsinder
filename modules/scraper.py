@@ -12,4 +12,5 @@ class Scraper:
         
         page_num = int(re.findall(r'<b>Sayfa: 1 \/ ([0-9]*)<\/b>', req.text)[0])
         
+        print(page_num)
         return page_num
