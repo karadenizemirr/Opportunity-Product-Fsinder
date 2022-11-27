@@ -82,8 +82,8 @@ class Scraper:
                     html = BeautifulSoup(req, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
                     print(title)
-                except:
-                    continue
+                except Exception as e:
+                    print(e)
 
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
