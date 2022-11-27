@@ -17,6 +17,8 @@ driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option
 
 def source(URL=None, PROXY = None, user_agent=None):
     driver.delete_all_cookies()
+    driver.delete_network_conditions()
+    
     driver.get(URL)
 
     if re.findall(r'403 Forbidden', str(driver.page_source)):
