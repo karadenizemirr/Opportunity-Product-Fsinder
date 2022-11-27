@@ -163,6 +163,7 @@ class Scraper:
         df.to_excel(filename)
         return df
 
+
     def telegram_messages(self):
         df = pd.read_excel("data/data.xlsx")
         df = df[df['Yüzdelik Fark'] >= 25]
