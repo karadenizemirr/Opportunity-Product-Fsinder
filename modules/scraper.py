@@ -16,7 +16,7 @@ class Scraper:
         self.session = bypass.create_session(URL=self.base_url)
         self.console = Console()
         self.telegram = telegram.Telegram(token="5750542194:AAHUctF5ImPnjjOmobKfh7pUBsd_5ZHobG8", user_id="744777387")
-
+        #self.telegram = telegram.Telegram(token="5901890521:AAG_9fjlySpTIQmJD-pb5wjYXC8hU-jjVvA", user_id="5669620760")
     def create_page_number(self):
         URL = f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"
         req = self.session.get(URL)
@@ -91,10 +91,10 @@ class Scraper:
                     # Second Seller
                     second_seller = None
                     if second.findAll("span", {'class': 'v_v8'})[0].img is None:
-                        second_seller = first.findAll("span", {'class': 'v_v8'})[0].text
+                        second_seller = second.findAll("span", {'class': 'v_v8'})[0].text
                     else:
-                        alt = first.findAll("span", {'class': 'v_v8'})[0].img['alt']
-                        text = first.findAll("span", {'class': 'v_v8'})[0].text
+                        alt = second.findAll("span", {'class': 'v_v8'})[0].img['alt']
+                        text = second.findAll("span", {'class': 'v_v8'})[0].text
 
                         second_seller = alt + text
 
