@@ -11,18 +11,13 @@ options = Options()
 options.add_argument("start-maximized")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
-options.add_argument('--headless')
-options.add_argument('--enable-gpu')
+#options.add_argument('--headless')
+#options.add_argument('--enable-gpu')
 driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
 def source(URL=None, PROXY = None, user_agent=None):
     driver.delete_all_cookies()
     driver.delete_network_conditions()
-    
     driver.get(URL)
-
-    if re.findall(r'403 Forbidden', str(driver.page_source)):
-        driver.delete_all_cookies()
-        time.sleep(5)
 
     return driver.page_source

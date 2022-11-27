@@ -92,20 +92,6 @@ class Scraper:
                     #req = self.session.get(l)
 
                     req = str(create_source.source(l))
-
-                    if re.findall(r'403 Forbidden', req):
-                        product = {
-                        "Ürün Adı": "Null",
-                        "İlk Satıcı": "Null",
-                        "İlk Satıcı Fiyatı": "Null",
-                        "İkinci Satıcı": "Null",
-                        "İkinci Satıcı Fiyatı": "Null",
-                        "Yüzdelik Fark": "Null",
-                        "Ürün Linki": l
-                        }
-                        time.sleep(5)   
-
-
                     html = BeautifulSoup(req, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
                     all_price = html.findAll("ul", {"id" : "PL"})[0].findAll("li")
@@ -158,16 +144,6 @@ class Scraper:
                     detail_data.append(product)
                     time.sleep(0.3)
                 except:
-                    product = {
-                        "Ürün Adı": "Null",
-                        "İlk Satıcı": "Null",
-                        "İlk Satıcı Fiyatı": "Null",
-                        "İkinci Satıcı": "Null",
-                        "İkinci Satıcı Fiyatı": "Null",
-                        "Yüzdelik Fark": 0,
-                        "Ürün Linki": l
-                        }
-                    time.sleep(5)
                     continue
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
