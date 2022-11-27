@@ -83,7 +83,8 @@ class Scraper:
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
                     print(title)
                 except Exception as e:
-                    print(e)
+                    time.sleep(5)
+                    continue
 
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
