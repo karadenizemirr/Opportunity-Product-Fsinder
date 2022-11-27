@@ -164,7 +164,7 @@ class Scraper:
                         "İlk Satıcı Fiyatı": "Null",
                         "İkinci Satıcı": "Null",
                         "İkinci Satıcı Fiyatı": "Null",
-                        "Yüzdelik Fark": "Null",
+                        "Yüzdelik Fark": 0,
                         "Ürün Linki": l
                         }
                     time.sleep(5)
@@ -180,11 +180,17 @@ class Scraper:
         df = pd.read_excel("data/data.xlsx")
         df = df[df['Yüzdelik Fark'] >= 25]
         df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
-        #user_id = "5669620760"
-        #api_key = "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
-        api_key = "5750542194:AAHUctF5ImPnjjOmobKfh7pUBsd_5ZHobG8"
-        user_id = "744777387"
-        sendMessage = f"https://api.telegram.org/bot{api_key}/sendMessage"
+
+        total_user = [
+            {
+                "user_id": "5669620760",
+                "api_key": "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
+            },
+            {
+                "user_id": "744777387",
+                "api_key": "5750542194"
+            }
+        ]
 
         # Create Message
         code_html='*Fırsat Ürünleri*'  
@@ -192,11 +198,14 @@ class Scraper:
             for i in range(len(df)):
                 for col in df.columns:
                     code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
-    
-        payloads = {
-            "chat_id": user_id,
-            "text" :code_html
-        }
+
+        for t in total_user:
+            sendMessage = f"https://api.telegram.org/bot{t['api_key']}/sendMessage"
+            payloads = {
+                "user_id":t['user_id'],
+                "text": code_html
+            }
+            
 
         try:
             self.session.post(sendMessage, data = payloads)
