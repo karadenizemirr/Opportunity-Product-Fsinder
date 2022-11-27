@@ -181,6 +181,7 @@ class Scraper:
         df = df[df['Yüzdelik Fark'] >= 25]
         df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
 
+        print(df)
         total_user = [
             {
                 "user_id": "5669620760",
