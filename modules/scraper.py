@@ -75,7 +75,7 @@ class Scraper:
                     title = html.findAll("h1")[0].text
                     
                     first  = html.findAll("ul", {"class", "pl_v8 pr_v8"})[0].findAll("li")[0]
-                    second  = html.findAll("ul", {"class", "pl_v8 pr_v8"})[0].findAll("li")[1]
+                    second  = html.findAll("ul", {"class", "pl_v8 pr_v8"})[1].findAll("li")[1]
                     
                     first_seller = None
                     if first.findAll("span", {'class': 'v_v8'})[0].img is None:
