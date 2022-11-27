@@ -132,6 +132,7 @@ class Scraper:
                         percent = ((sp - fp) / sp) * 100
                     except  KeyError:
                         percent = 0.00
+                        continue
                     
                     # Create Dict
                     product = {
@@ -147,6 +148,17 @@ class Scraper:
                     detail_data.append(product)
                     time.sleep(0.3)
                 except:
+                    product = {
+                        "Ürün Adı": title,
+                        "İlk Satıcı": "null",
+                        "İlk Satıcı Fiyatı": "null",
+                        "İkinci Satıcı": "null",
+                        "İkinci Satıcı Fiyatı": "null",
+                        "Yüzdelik Fark": "null",
+                        "Ürün Linki": l
+                    }
+                    
+                    detail_data.append(product)
                     continue
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
