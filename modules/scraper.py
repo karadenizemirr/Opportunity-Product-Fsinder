@@ -48,4 +48,12 @@ class Scraper:
             for link in links:
                 file.write("\n")
                 file.write(str(link).strip())
-                
+    
+    def product_detail(self, URL = []):
+        pass
+
+    def bad_request_product_detail(self, URL=[]):
+        pass
+
+    def telegram_messages(self):
+        pass
