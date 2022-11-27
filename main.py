@@ -6,7 +6,7 @@ console = Console()
 
 def main():
     sc = scraper.Scraper()
-    sc.create_page_number()
+    sc.create_product_link(21)
     
 
 if __name__ == '__main__':
