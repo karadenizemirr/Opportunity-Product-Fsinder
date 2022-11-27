@@ -1,5 +1,6 @@
 import re
 import time
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -18,9 +19,11 @@ driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option
 def source(URL=None, PROXY = None, user_agent=None):
     driver.delete_all_cookies()
     driver.delete_network_conditions()
-    
+
     if re.findall(r'title', str(driver.page_source.title)):
-        print("burada")
+        _proxy = proxy.create_proxy()
+        options.add_argument('--proxy-server=%s' % _proxy)
+        time.sleep(5)
     driver.get(URL)
 
     return driver.page_source
