@@ -2,6 +2,7 @@ import re
 import time
 import os
 import pandas as pd
+from datetime import datetime
 from modules.user_agent import user_agent
 from modules.bypass import bypass
 from modules.telegram import telegram
@@ -99,62 +100,21 @@ class Scraper:
 
                     second_price = second.findAll('span', {'class': 'pt_v8'})[0].text
                     # Calculate Percent
-                    A = int(re.sub(r',[0-9]* TL', "", first_price).replace(".", ""))
-                    B = int(re.sub(r',[0-9]* TL', "", second_price).replace(".", ""))
+                    A = float(int(re.sub(r',[0-9]* TL', "", first_price).replace(".", "")))
+                    B = float(int(re.sub(r',[0-9]* TL', "", second_price).replace(".", "")))
 
                     percent =((B-A) / B) * 100
-                    
 
-                    _info = {
-                        "Ürün Adı": title,
-                        "İlk Satıcı": first_seller,
-                        "İlk Satıcı Fiyatı": first_price,
-                        "İkinci Satıcı": second_seller,
-                        "İkinci Satıcı Fiyatı": second_price,
-                        "Yüzdelik Fark": "%.2f" % percent,
-                        "Link": u
-                    }
-
-                    details.append(_info)
-
-                    if IndexError:
-                        _info = {
-                        "Ürün Adı": title,
-                        "İlk Satıcı": "null",
-                        "İlk Satıcı Fiyatı": "null",
-                        "İkinci Satıcı": "null",
-                        "İkinci Satıcı Fiyatı": "null",
-                        "Yüzdelik Fark": "0",
-                        "Link": u
-                    }
-                    details.append(_info)
+                    if percent >= 25:
+                        message = f""" 
+                            <b>FIRSAT ÜRÜNÜ</b>
+                            \n\n<a href="{u}">{title}</a>\n\n<b>İlk Satıcı: </b> {first_seller}\n<b>İlk Satıcı Fiyatı: </b> {first_price}\n<b>İkinci Satıcı: </b> {second_seller}\n<b>İkinci Satıcı Fiyatı: </b> {second_price}\n<b>Yüzdelik Fark: </b> %.2f
+                        """ % percent
+                        self.telegram.sendMessage(message=message)
                 except:
                     time.sleep(5)
                     continue
                 # End DATA
+
                 progress.update(pbar, advance=1)
-        # Create Dataframe
-        df = pd.DataFrame(details)
-
-        # Save DF
-        path = "data/data.xlsx"
-        if os.path.isfile(path):
-            os.remove(path)
-        
-        df.to_excel(path)
-        return df
-
-    def telegram_messages(self):
-        
-        df = pd.read_excel("data/data.xlsx")
-        df = df[df['Yüzdelik Fark'] >= 25]
-        df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
-
-        # Create Message
-        code_html='*Fırsat Ürünleri*'  
-        if df.empty == False:
-            for i in range(len(df)):
-                for col in df.columns:
-                    code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
-                    # Send Message
-                    self.telegram.sendMessage(message=code_html)
+        return None

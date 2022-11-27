@@ -16,6 +16,4 @@ def main():
     sc.telegram_messages()
 
 if __name__ == '__main__':
-    while True:
-        main()
-        time.sleep(60 * 45)
+    main()
