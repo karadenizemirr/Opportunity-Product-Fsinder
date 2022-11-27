@@ -1,17 +1,22 @@
 import re
 import time
+import telegram.ext
+import telegram 
 import os
 import pandas as pd
 from modules.user_agent import user_agent
 from modules.bypass import bypass
+from modules.telegram import telegram
 from bs4 import BeautifulSoup
 from rich.console import Console
 from rich.progress import Progress
+
 class Scraper:
     def __init__(self):
         self.base_url = "https://api.akakce.com"
         self.session = bypass.create_session(URL=self.base_url)
         self.console = Console()
+        self.telegram = telegram.Telegram(token="5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI", user_id="5669620760")
 
     def create_page_number(self):
         URL = f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"
@@ -132,7 +137,7 @@ class Scraper:
                 progress.update(pbar, advance=1)
         # Create Dataframe
         df = pd.DataFrame(details)
-        
+
         # Save DF
         path = "data/data.xlsx"
         if os.path.isfile(path):
@@ -142,28 +147,16 @@ class Scraper:
         return df
 
     def telegram_messages(self):
-            API = "5843617868:AAGXSwTQZSgAruuw0afAzl4y-jq8RJzRWgI"
-            USER_ID = "5669620760"
+        
+        df = pd.read_excel("data/data.xlsx")
+        df = df[df['Yüzdelik Fark'] >= 25]
+        df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
 
-            df = pd.read_excel("data/data.xlsx")
-            df = df[df['Yüzdelik Fark'] >= 25]
-            df.rename(columns={'Unnamed: 0': 'Index'}, inplace=True)
-
-            # Create Message
-            code_html='*Fırsat Ürünleri*'  
-            if df.empty == False:
-                for i in range(len(df)):
-                    for col in df.columns:
-                        code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
-
-            sendMessage = f"https://api.telegram.org/bot{API}/sendMessage"
-            payloads = {
-                "user_id":USER_ID,
-                "text": code_html
-            }
-                
-            try:
-                self.session.post(sendMessage, data = payloads)
-                self.console.log("Mesaj başarıyla gönderildi", style="bold green")
-            except:
-                self.console.log("Mesaj gönderilirken sorun meydana geldi..", style="bold red")
+        # Create Message
+        code_html='*Fırsat Ürünleri*'  
+        if df.empty == False:
+            for i in range(len(df)):
+                for col in df.columns:
+                    code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
+        # Send Message
+        self.telegram.sendMessage(message="deneme")
