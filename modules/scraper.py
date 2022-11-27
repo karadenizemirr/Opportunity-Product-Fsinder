@@ -1,4 +1,4 @@
-import requests
+import re
 from modules.user_agent import user_agent
 from modules.bypass import bypass
 class Scraper:
@@ -10,4 +10,6 @@ class Scraper:
         URL = f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"
         req = self.session.get(URL)
         
-        print(req.status_code)
+        page_num = int(re.findall(r'<b>Sayfa: 1 \/ ([0-9]*)<\/b>', req.text)[0])
+        
+        return page_num
