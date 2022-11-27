@@ -76,9 +76,6 @@ class Scraper:
         with self.console.status("[blue]Detaylar alınıyor..[/blue]") as status:
             for l in links:
                 req = str(create_source.source(l))
-                
-                if re.findall(r'title', str(req.title)):
-                    print("burada")
 
                 html = BeautifulSoup(req, "html.parser")
                 title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text

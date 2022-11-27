@@ -19,6 +19,8 @@ def source(URL=None, PROXY = None, user_agent=None):
     driver.delete_all_cookies()
     driver.delete_network_conditions()
     
+    if re.findall(r'title', str(driver.page_source.title)):
+        print("burada")
     driver.get(URL)
 
     return driver.page_source
