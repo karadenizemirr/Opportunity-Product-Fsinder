@@ -92,6 +92,10 @@ class Scraper:
                     #req = self.session.get(l)
 
                     req = str(create_source.source(l))
+                    
+                    if req.title == "403 - Forbidden: Access is denied.":
+                        print("burada")
+                        time.sleep(60)
                     html = BeautifulSoup(req, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
                     all_price = html.findAll("ul", {"id" : "PL"})[0].findAll("li")
