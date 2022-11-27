@@ -1,14 +1,10 @@
 import re
 import time
 import os
-import pandas as pd
-from datetime import datetime
-from modules.user_agent import user_agent
 from modules.bypass import bypass
 from modules.telegram import telegram
 from bs4 import BeautifulSoup
 from rich.console import Console
-from rich.progress import Progress
 
 class Scraper:
     def __init__(self):
