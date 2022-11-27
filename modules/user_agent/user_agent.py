@@ -12,8 +12,6 @@ def random_user_agent():
                 ua.append(f.strip())
 
         rua = ua[random.randint(0,len(ua))]
-
-        console.print("\nUser-Agent oluşturuldu.\n", style="bold green")
         return rua
     except:
         console.print("\nUser-Agent oluşturulamadı.\n", style="bold red")
