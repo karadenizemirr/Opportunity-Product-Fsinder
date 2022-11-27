@@ -60,8 +60,7 @@ class Scraper:
     def product_detail(self, URL = []):
         details = []
         
-        with Progress() as progress:
-            pbar = progress.add_task("[blue]Detaylar alınıyor..[/blue]", total=len(URL))
+        with self.console.status("[blue]Detaylar alınıyor..[/blue]") as status:
             for u in URL:
                 try:
                     req = self.session.get(u)
@@ -116,6 +115,5 @@ class Scraper:
                     time.sleep(5)
                     continue
                 # End DATA
-
-                progress.update(pbar, advance=1)
+            self.console.log("Detay alma işlemi bitti.")
         return None
