@@ -6,17 +6,6 @@ console = Console()
 
 def main():
     sc = scraper.Scraper()
-    # Create Pagination
-    page = sc.pagination()
-
-    # Create Link
-    sc.product_link(page=page)
-
-    # Create Detail
-    sc.product_detail()
-
-    #Get Message
-    sc.telegram_messages()
     
 
 if __name__ == '__main__':
