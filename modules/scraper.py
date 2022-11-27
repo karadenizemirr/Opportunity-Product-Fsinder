@@ -127,12 +127,8 @@ class Scraper:
                     fp = float(re.sub(r',(.*)',"",str(first_price)))
                     sp = float(re.sub(r',(.*)',"", second_price))
                     # Calculate
-
-                    try:
-                        percent = ((sp - fp) / sp) * 100
-                    except  KeyError:
-                        percent = 0.00
-                        continue
+                    
+                    percent = ((sp - fp) / sp) * 100
                     
                     # Create Dict
                     product = {
