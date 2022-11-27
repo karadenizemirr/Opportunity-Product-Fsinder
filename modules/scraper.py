@@ -158,5 +158,5 @@ class Scraper:
             for i in range(len(df)):
                 for col in df.columns:
                     code_html = code_html + f'\n\n{col}:' + str((df[str(col)].iloc[i]))
-        # Send Message
-        self.telegram.sendMessage(message="deneme")
+                    # Send Message
+                    self.telegram.sendMessage(message=code_html)
