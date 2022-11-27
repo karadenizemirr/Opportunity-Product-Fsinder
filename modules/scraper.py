@@ -9,4 +9,5 @@ class Scraper:
     def create_page_number(self):
         URL = f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/"
         req = self.session.get(URL)
-        print(req)
+        
+        print(req.status_code)
