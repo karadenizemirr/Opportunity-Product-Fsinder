@@ -12,8 +12,6 @@ def main():
     product_link = sc.create_product_link(page_number=page_number)
 
     product_detail = sc.product_detail(URL=product_link)
-    
-    sc.telegram_messages()
 
 if __name__ == '__main__':
     while True:
