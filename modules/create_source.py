@@ -21,9 +21,4 @@ def source(URL=None, PROXY = None, user_agent=None):
     
     driver.get(URL)
 
-    if driver.page_source.title == "403 - Forbidden: Access is denied.":
-        driver.delete_all_cookies()
-        driver.delete_network_conditions()
-        time.sleep(10)
-
     return driver.page_source

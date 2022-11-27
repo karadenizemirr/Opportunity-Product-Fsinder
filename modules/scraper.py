@@ -31,34 +31,21 @@ class Scraper:
     
     def product_link(self, page = 21):
         links = []
-        try:
-            for i in range(1, page+1):
-                
+        for i in range(1, page+1):
+            try:
                 if i == 1:
-                    # req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/", headers={
-                    #     "user-agent": self.user_agent
-                    # })
-
                     req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/",))
                 
                 else: 
-                    # req = self.session.get(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}", headers={
-                    #     "user-agent": self.user_agent
-                    # })
-
                     req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}"))
                 
                 li = BeautifulSoup(req, "html.parser").findAll("ul", {'id' : 'DPL'})[0].findAll('li')
                 
                 for l in li:
                     links.append(f"{l.a['href']}".strip())
-        except IndexError:
-            #_proxy = proxy.create_proxy()
-            #req = str(create_source.source(f"{self.base_url}/son-alti-ayin-en-ucuz-fiyatli-urunleri/?p={i}"), proxy=f"http://{_proxy['https']}")
-            
-            # self.session.proxies.update({
-            #         "https": f"http://{_proxy['https']}"})
-            time.sleep(5)
+            except:
+                time.sleep(5)
+                continue
             
             
         try:
@@ -90,76 +77,13 @@ class Scraper:
             for l in links:
                 try:
                     #req = self.session.get(l)
-
                     req = str(create_source.source(l))
                     
-                    if req.title == "403 - Forbidden: Access is denied.":
-                        print("burada")
-                        time.sleep(60)
                     html = BeautifulSoup(req, "html.parser")
                     title = html.findAll("div", {"class" :"pdt_v8"})[0].h1.text
-                    all_price = html.findAll("ul", {"id" : "PL"})[0].findAll("li")
-
-                    first_html = all_price[0]
-                    second_html = all_price[1]
-
-                    first_price = first_html.find("span", {"class": "pt_v8"}).text
-
-                    seller = first_html.findAll("span", {"class": "v_v8"})
-
-                    seller_name = None
-
-                    if seller[0].img:
-                        seller_name = seller[0].img['alt'] + seller[0].text
-                    elif seller[0]:
-                        seller_name = seller[0].text
-                    else:
-                        seller_name = "Satıcı Bulunamadı."
-
-                    second_price = second_html.find("span", {"class": "pt_v8"}).text
-                    second_seller = second_html.findAll("span", {"class": "v_v8"})
-                    second_seller_name = None
-                    
-                    if second_seller[0].img:
-                        second_seller_name = second_seller[0].img['alt'] + second_seller[0].text
-                    elif second_seller[0]:
-                        second_seller_name = second_seller[0].text
-                    else:
-                        second_seller_name = "Satıcı Bulunamadı"
-                    
-                    # Price Analysis 
-                    fp = float(re.sub(r',(.*)',"",str(first_price)))
-                    sp = float(re.sub(r',(.*)',"", second_price))
-                    # Calculate
-                    
-                    percent = ((sp - fp) / sp) * 100
-                    
-                    # Create Dict
-                    product = {
-                        "Ürün Adı": title,
-                        "İlk Satıcı": seller_name,
-                        "İlk Satıcı Fiyatı": first_price,
-                        "İkinci Satıcı": second_seller_name,
-                        "İkinci Satıcı Fiyatı": second_price,
-                        "Yüzdelik Fark": "%.2f" % float(percent),
-                        "Ürün Linki": l
-                    }
-                    
-                    detail_data.append(product)
-                    time.sleep(0.3)
                 except:
-                    product = {
-                        "Ürün Adı": "null",
-                        "İlk Satıcı": "null",
-                        "İlk Satıcı Fiyatı": "null",
-                        "İkinci Satıcı": "null",
-                        "İkinci Satıcı Fiyatı": "null",
-                        "Yüzdelik Fark": "null",
-                        "Ürün Linki": l
-                    }
-                    
-                    detail_data.append(product)
                     continue
+                
             self.console.log("Detaylar alma işlemi tamamlandı.", style="bold yellow")
         df = pd.DataFrame(detail_data)
         # Save Df
