@@ -145,7 +145,7 @@ class Scraper:
                     time.sleep(0.3)
                 except:
                     product = {
-                        "Ürün Adı": title,
+                        "Ürün Adı": "null",
                         "İlk Satıcı": "null",
                         "İlk Satıcı Fiyatı": "null",
                         "İkinci Satıcı": "null",
