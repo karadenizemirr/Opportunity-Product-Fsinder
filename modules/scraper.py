@@ -5,7 +5,7 @@ from modules.bypass import bypass
 from modules.telegram import telegram
 from bs4 import BeautifulSoup
 from rich.console import Console
-
+from modules.logger import logger
 class Scraper:
     def __init__(self):
         self.base_url = "https://api.akakce.com"
@@ -107,6 +107,10 @@ class Scraper:
                         """ % percent
                         self.telegram.sendMessage(message=message)
                         self.telegram_my.sendMessage(message=message)
+                    
+
+                    # Save Logger
+                    logger.create_log(data=title, filename="productLog")
                 except:
                     time.sleep(5)
                     continue
