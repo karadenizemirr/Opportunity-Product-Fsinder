@@ -105,9 +105,12 @@ class Scraper:
                             <b>FIRSAT ÜRÜNÜ</b>
                             \n\n<a href="{u}">{title}</a>\n\n<b>İlk Satıcı: </b> {first_seller}\n<b>İlk Satıcı Fiyatı: </b> {first_price}\n<b>İkinci Satıcı: </b> {second_seller}\n<b>İkinci Satıcı Fiyatı: </b> {second_price}\n<b>Yüzdelik Fark: </b> %.2f
                         """ % percent
-                        self.telegram.sendMessage(message=message)
-                        self.telegram_my.sendMessage(message=message)
-                    
+
+                        logControl = logger.log_control(query=title, filename="productLog")
+                        
+                        if logControl == False:
+                            self.telegram.sendMessage(message=message)
+                            self.telegram_my.sendMessage(message=message)
 
                     # Save Logger
                     logger.create_log(data=title, filename="productLog")
